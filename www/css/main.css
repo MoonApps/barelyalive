@@ -72,7 +72,7 @@ textarea {
 .ba_rect {
     width: 100%;
     height: auto;
-    position: relative;
+    position: absolute;
 }
 
 .ba-logo {
@@ -97,7 +97,7 @@ textarea {
 }
 
 .photo-result {
-    display: none;
+    //display: none;
 }
 
 

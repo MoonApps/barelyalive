@@ -64,12 +64,12 @@ FaceFucker.prototype.getScaleFactor = function() {
 FaceFucker.prototype.addBarelyAlive = function(imgDOM) {
     // set constants
     //
-    var BA_LOGO_URL = "/img/test/barelyalive.png";
+    var BA_LOGO_URL = "img/test/barelyalive.jpg";
     
     // grab parent container for image DOM
     //
     var cont = imgDOM.parentNode;
-    
+    console.log(cont);
     // using facial recognition to find faces in the image
     //
     this.myTracker.on('track', function(event) {

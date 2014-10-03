@@ -10,9 +10,19 @@ function onBodyLoad() {
 
 // Cordova is ready to be used
 function onDeviceReady() {
+    // display welcome scree
+    //
+    navigator.splashscreen.show();
+    // set camera env vars
+    //
     pictureSource=navigator.camera.PictureSourceType;
     destinationType=navigator.camera.DestinationType;
     encodingType=navigator.camera.EncodingType;
+    // load app
+    //
+    setTimeout(function() {
+        navigator.splashscreen.hide();
+    }, 3000);
 }
 
 // Called when a photo is successfully retrieved
@@ -43,12 +53,12 @@ function onPhotoURISuccess(imageURI) {
     
     // Display the image
     //image.style.display = 'block';
-    console.log("leaving onPhotoDataSuccess");
+    
 }
 function onPhotoDataSuccess(imageData) {
       // Uncomment to view the base64 encoded image data
       // console.log(imageData);
-
+      window.location = "result.html";
       // Get image handle
       //
       var smallImage = document.getElementById('smallImage');
@@ -63,7 +73,6 @@ function onPhotoDataSuccess(imageData) {
       smallImage.src = "data:image/jpeg;base64," + imageData;
       var ff = new FaceFucker();
       ff.addBarelyAlive(smallImage);
-      
     }
 // Also called when a photo is successfully retrieved
 //function onPhotoDataSuccess(imageData) {
@@ -80,17 +89,14 @@ function onPhotoDataSuccess(imageData) {
 //    //
 //    console.log("post img src assignment");
 //}
+
+// on photo.html load
+//
 function capturePhoto() {
       // Take picture using device camera and retrieve image as base64-encoded string
       navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
         destinationType: destinationType.DATA_URL });
-    }
-// Button calls the following function
-//function capturePhoto() {
-//    // Take picture using device camera and retrieve image uri
-//    navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
-//      destinationType: destinationType.DATA_URL });
-//}
+}
 
 // Button calls the following function
 function capturePhotoEdit() {
@@ -107,11 +113,7 @@ function getPhoto(source) {
       sourceType: source });
 }
 
-function goToView(dest) {
-    window.location = dest;
-}
-
 // Called if something bad happens.
 function onFail(message) {
-    alert('Looks like we\'re drunk. Failed because: ' + message);
+    alert('There may have been a camera issue: ' + message);
 }
