@@ -12,7 +12,7 @@ function onBodyLoad() {
 function onDeviceReady() {
     // display welcome scree
     //
-    navigator.splashscreen.show();
+    //navigator.splashscreen.show();
     // set camera env vars
     //
     pictureSource=navigator.camera.PictureSourceType;
@@ -20,45 +20,36 @@ function onDeviceReady() {
     encodingType=navigator.camera.EncodingType;
     // load app
     //
-    setTimeout(function() {
-        navigator.splashscreen.hide();
-    }, 3000);
+//    setTimeout(function() {
+//        navigator.splashscreen.hide();
+//    }, 3000);
 }
 
 // Called when a photo is successfully retrieved
 function onPhotoURISuccess(imageURI) {
-    // Uncomment to view the image url
-    //window.location = "result.html";
-    
-    // Get image handle
-    //
-    // hide image elements
-    //
-    //image.style.display = 'hidden';
-    //image.style.display = 'block';
+    // Uncomment to view the base64 encoded image data
+      // console.log(imageData);
+      //window.location = "result.html";
+      // Get image handle
+      //
+      var smallImage = document.getElementById('smallImage');
 
-    // Show the captured photo
-    // The inline CSS rules are used to resize the image
-    //
-    $('#result').attr({
-        src: imageURI
-    });
-    //navigator.notification.alert("post image.src", null, "Debug", btnText);
-    // Add BA logo
-    //
-    console.log($('#result'));
-    console.log(imageURI);
-    var ff = new FaceFucker();
-    //ff.addBarelyAlive($('#result'));
-    
-    // Display the image
-    //image.style.display = 'block';
+      // Unhide image elements
+      //
+      smallImage.style.display = 'block';
+
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      smallImage.src = imageURI;
+      var ff = new FaceFucker();
+      ff.addBarelyAlive(smallImage);
     
 }
 function onPhotoDataSuccess(imageData) {
       // Uncomment to view the base64 encoded image data
       // console.log(imageData);
-      window.location = "result.html";
+      //window.location = "result.html";
       // Get image handle
       //
       var smallImage = document.getElementById('smallImage');
@@ -94,8 +85,10 @@ function onPhotoDataSuccess(imageData) {
 //
 function capturePhoto() {
       // Take picture using device camera and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
-        destinationType: destinationType.DATA_URL });
+      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 100,
+        destinationType: navigator.camera.DestinationType.FILE_URI,
+        encodingType: Camera.EncodingType.JPEG,
+        correctOrientation: true});
 }
 
 // Button calls the following function

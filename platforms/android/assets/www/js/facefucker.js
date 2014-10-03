@@ -62,6 +62,7 @@ FaceFucker.prototype.getScaleFactor = function() {
  * @returns {undefined}
  */
 FaceFucker.prototype.addBarelyAlive = function(imgDOM) {
+    console.log("addBarelyAlive");
     // set constants
     //
     var BA_LOGO_URL = "img/test/barelyalive.jpg";
@@ -69,15 +70,16 @@ FaceFucker.prototype.addBarelyAlive = function(imgDOM) {
     // grab parent container for image DOM
     //
     var cont = imgDOM.parentNode;
-    console.log(cont);
     // using facial recognition to find faces in the image
     //
     this.myTracker.on('track', function(event) {
+        console.log("tracking now");
         event.data.forEach(function(rect){
+           console.log("assigning coords");
            window.plot(rect.x, rect.y, rect.width, rect.height);
         });
     });
-    
+    console.log("post tracking");
     // set listener
     //
     tracking.track(imgDOM, this.myTracker);
@@ -85,6 +87,7 @@ FaceFucker.prototype.addBarelyAlive = function(imgDOM) {
     // insert barely alive logo on top of faces
     //
     window.plot = function(x, y, w, h) {
+        console.log("plotting");
         // create image element to overlap original with
         //
         var rect = document.createElement('img');
@@ -99,7 +102,7 @@ FaceFucker.prototype.addBarelyAlive = function(imgDOM) {
         rect.style.left = (imgDOM.offsetLeft + x) + 'px';
         rect.style.top = (imgDOM.offsetTop + y) + 'px';
         rect.src = BA_LOGO_URL;
-        
+        console.log("done plotting");
         // finally show the image DOM for user to view, now w/ barely alive
         // logo on top
         //imgDOM.style.display = 'block';
